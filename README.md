@@ -1,6 +1,6 @@
 # Argentinian Weather MCP
 
-MCP Server to provide argentinian weather as a tools.
+MCP Server to provide argentinian weather as a tool.
 This project was based on the [MCP Server Quickstart documentation](https://modelcontextprotocol.io/quickstart/server).
 
 ### The server exposes 2 tools:
