@@ -27,6 +27,8 @@ async def get_forecast(city_name: str) -> str:
     """Get weather forecast for a argentinian location.
     Args:
         city_name(str): Name of the city
+    Returns:
+        str: Forecast information for the specified city
     """
     url = f"{SMN_API_BASE}/map_items/forecast"
     n_days = 5  # Number of days to forecast (Range: 1-5)
@@ -63,6 +65,8 @@ async def get_weather(city_name: str) -> str:
     """Get weather information for a specific argentinian city.
     Args:
         city_name(str): Name of the city
+    Returns:
+        str: Weather information for the specified city
     """
 
     url = f"""{SMN_API_BASE}/map_items/weather"""
