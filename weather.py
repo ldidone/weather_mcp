@@ -9,12 +9,10 @@ mcp = FastMCP("weather")
 SMN_API_BASE = "https://ws.smn.gob.ar/"
 USER_AGENT = "weather-app/1.0"
 
+
 async def make_smn_request(url: str) -> dict[str, Any] | None:
     """Make a request to the SMN API with proper error handling."""
-    headers = {
-        "User-Agent": USER_AGENT,
-        "Accept": "application/json"
-    }
+    headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
     async with httpx.AsyncClient() as client:
         try:
             response = await client.get(url, headers=headers, timeout=30.0)
@@ -23,6 +21,7 @@ async def make_smn_request(url: str) -> dict[str, Any] | None:
         except Exception:
             return None
 
+
 @mcp.tool()
 async def get_forecast(city_name: str) -> str:
     """Get weather forecast for a argentinian location.
@@ -30,7 +29,7 @@ async def get_forecast(city_name: str) -> str:
         city_name(str): Name of the city
     """
     url = f"{SMN_API_BASE}/map_items/forecast"
-    n_days = 5 # Number of days to forecast (Range: 1-5)
+    n_days = 5  # Number of days to forecast (Range: 1-5)
     forecasts = []
     for i in range(1, n_days):
         new_url = f"{url}/{i}"
@@ -58,13 +57,14 @@ Afternoon description: {data_item["weather"]['afternoon_desc']}
 
     return "\n---\n".join(forecasts)
 
+
 @mcp.tool()
 async def get_weather(city_name: str) -> str:
     """Get weather information for a specific argentinian city.
     Args:
         city_name(str): Name of the city
     """
-    
+
     url = f"""{SMN_API_BASE}/map_items/weather"""
 
     data = await make_smn_request(url)
@@ -87,6 +87,7 @@ Description: {data_item["weather"]["description"]}
             error_message = f"""City '{city_name}' not found in the response."""
             return error_message
 
+
 if __name__ == "__main__":
     # Initialize and run the server
-    mcp.run(transport='stdio')
+    mcp.run(transport="stdio")
